@@ -758,6 +758,71 @@
                   </q-form>
                 </div>
               </div>
+              <div class="row">
+                <div class="chatbox-container">
+                  <div class="container">
+                    <h1>Ai Chat Bot</h1>
+                    <div class="messageBox mt-8">
+                      <template
+                        v-for="(message, index) in messages"
+                        :key="index"
+                      >
+                        <div
+                          :class="
+                            message.from == 'user'
+                              ? 'messageFromUser'
+                              : 'messageFromChatGpt'
+                          "
+                        >
+                          <div
+                            :class="
+                              message.from == 'user'
+                                ? 'userMessageWrapper'
+                                : 'chatGptMessageWrapper'
+                            "
+                          >
+                            <div
+                              :class="
+                                message.from == 'user'
+                                  ? 'userMessageContent'
+                                  : 'chatGptMessageContent'
+                              "
+                            >
+                              {{ message.data }}
+                            </div>
+                          </div>
+                        </div>
+                      </template>
+                    </div>
+                    <div class="inputContainer">
+                      <input
+                        v-model="currentMessage"
+                        type="text"
+                        class="messageInput"
+                        placeholder="Ask me anything..."
+                      />
+                      <button
+                        @click="sendMessage(currentMessage)"
+                        class="askButton"
+                      >
+                        Ask
+                      </button>
+
+                      <div>
+                        <audio
+                          id="player"
+                          ref="player"
+                          :src="mySource"
+                          type="audio/mpeg"
+                          controls
+                          hidden
+                        ></audio>
+                        <canvas ref="canvas" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </q-card>
           </div>
         </div>

@@ -313,6 +313,60 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="row">
+                  <div class="chatbox-container">
+                    <div class="container">
+                      <h1>Ai Chat Bot</h1>
+                      <div class="messageBox mt-8">
+                        <template
+                          v-for="(message, index) in messages"
+                          :key="index"
+                        >
+                          <div
+                            :class="
+                              message.from == 'user'
+                                ? 'messageFromUser'
+                                : 'messageFromChatGpt'
+                            "
+                          >
+                            <div
+                              :class="
+                                message.from == 'user'
+                                  ? 'userMessageWrapper'
+                                  : 'chatGptMessageWrapper'
+                              "
+                            >
+                              <div
+                                :class="
+                                  message.from == 'user'
+                                    ? 'userMessageContent'
+                                    : 'chatGptMessageContent'
+                                "
+                              >
+                                {{ message.data }}
+                              </div>
+                            </div>
+                          </div>
+                        </template>
+                      </div>
+                      <div class="inputContainer">
+                        <input
+                          v-model="currentMessage"
+                          type="text"
+                          class="messageInput"
+                          placeholder="Ask me anything..."
+                        />
+                        <button
+                          @click="sendMessage(currentMessage)"
+                          class="askButton"
+                        >
+                          Ask
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </q-card>
             </div>
           </div>
@@ -352,6 +406,12 @@ export default {
   components: {},
   data() {
     return {
+      //----------
+      //----------
+      //chat gpt
+      currentMessage: "",
+      messages: [],
+      //----------
       file_export: "",
       pdpa: ref(false),
       picked: new Date(),

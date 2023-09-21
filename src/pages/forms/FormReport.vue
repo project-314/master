@@ -1,7 +1,11 @@
 <template>
   <q-layout view="hHh Lpr lFf">
     <q-page-container class="bg-grey-2">
-      <q-page padding class="items-center justify-center" style="background: linear-gradient(#74c588, #0ad13c)">
+      <q-page
+        padding
+        class="items-center justify-center"
+        style="background: linear-gradient(#74c588, #0ad13c)"
+      >
         <div class="full-width">
           <div class="col-md-8 offset-md-2 col-xs-12 q-pa-xs">
             <q-card flat class="bg-white text-black">
@@ -17,11 +21,19 @@
                     <div class="row">
                       <!-- แผนอาชีพ -->
                       <div class="col-md-6 col-xs-12 q-pa-xs">
-                        <q-select @filter="filterPlan_career" use-input color="green" v-model="plan_career_id"
-                          :options="plan_career.options" label="อาชีพเป้าหมาย" emit-value map-options
+                        <q-select
+                          @filter="filterPlan_career"
+                          use-input
+                          color="green"
+                          v-model="plan_career_id"
+                          :options="plan_career.options"
+                          label="อาชีพเป้าหมาย"
+                          emit-value
+                          map-options
                           @update:model-value="
                             (val) => onPlanCareerSelected(val)
-                          ">
+                          "
+                        >
                           <template v-slot:prepend>
                             <q-icon name="work_history" />
                           </template>
@@ -44,11 +56,19 @@
                       </div>
                       <!-- คุณสมบัติ -->
                       <div class="col-md-6 col-xs-12 q-pa-xs">
-                        <q-select @filter="filterQa_plan_career" use-input color="green" v-model="qualification_id"
-                          :options="qa_plan_career.options" label="คุณสมบัติที่ต้องการ" emit-value map-options
+                        <q-select
+                          @filter="filterQa_plan_career"
+                          use-input
+                          color="green"
+                          v-model="qualification_id"
+                          :options="qa_plan_career.options"
+                          label="คุณสมบัติที่ต้องการ"
+                          emit-value
+                          map-options
                           @update:model-value="
                             (val) => onQualificationSelected(val)
-                          ">
+                          "
+                        >
                           <template v-slot:prepend>
                             <q-icon name="fact_check" />
                           </template>
@@ -73,18 +93,43 @@
                     <!-- การเปลี่ยนหน้า -->
                     <div class="row">
                       <!-- ปุ่มควบคุม -->
-                      <div class="col-md-12 col-xs-12 q-pa-xs row justify-center">
+                      <div
+                        class="col-md-12 col-xs-12 q-pa-xs row justify-center"
+                      >
                         <!-- ออก -->
-                        <q-btn icon="logout" label="ออก" color="primary" flat class="q-pa-xs" to="/" />
+                        <q-btn
+                          icon="logout"
+                          label="ออก"
+                          color="primary"
+                          flat
+                          class="q-pa-xs"
+                          to="/"
+                        />
                         <!-- กลับการพัฒนาตนเอง -->
-                        <q-btn color="primary" label="กลับฟอร์มการประเมินตนเอง" no-caps flat icon="skip_previous"
-                          to="/FormSelfAssessment">
-                          <q-tooltip class="bg-accent">กลับฟอร์มการประเมินตนเอง</q-tooltip>
+                        <q-btn
+                          color="primary"
+                          label="กลับฟอร์มการประเมินตนเอง"
+                          no-caps
+                          flat
+                          icon="skip_previous"
+                          to="/FormSelfAssessment"
+                        >
+                          <q-tooltip class="bg-accent"
+                            >กลับฟอร์มการประเมินตนเอง</q-tooltip
+                          >
                         </q-btn>
                         <!-- ไปการประเมินตนเอง -->
-                        <q-btn color="primary" label="ไปฟอร์มรายงานการประเมินตนเอง" no-caps flat icon="skip_next"
-                          to="/FormPivotTable">
-                          <q-tooltip class="bg-accent">ไปฟอร์มรายงานการประเมินตนเอง</q-tooltip>
+                        <q-btn
+                          color="primary"
+                          label="ไปฟอร์มรายงานการประเมินตนเอง"
+                          no-caps
+                          flat
+                          icon="skip_next"
+                          to="/FormPivotTable"
+                        >
+                          <q-tooltip class="bg-accent"
+                            >ไปฟอร์มรายงานการประเมินตนเอง</q-tooltip
+                          >
                         </q-btn>
                       </div>
                     </div>
@@ -92,29 +137,58 @@
                     <div class="row">
                       <div class="col-md-12 col-xs-12 q-pa-xs">
                         <div class="q-pa-xs">
-                          <q-table class="my-sticky-header-table" ref="myTable" title="คุณสมบัติตามอาชีพเป้าหมาย"
-                            :rows="qa_plan_careers" :columns="main_columns" row-key="qa_plan_career_id"
-                            selection="multiple" v-model:selected="selected" style="min-height: 100vh" :filter="filter">
+                          <q-table
+                            class="my-sticky-header-table"
+                            ref="myTable"
+                            title="คุณสมบัติตามอาชีพเป้าหมาย"
+                            :rows="qa_plan_careers"
+                            :columns="main_columns"
+                            row-key="qa_plan_career_id"
+                            selection="multiple"
+                            v-model:selected="selected"
+                            style="min-height: 100vh"
+                            :filter="filter"
+                          >
                             <!-- ปุ่มค้นหา + ส่งออก excel -->
                             <template v-slot:top-right>
                               <!-- ปุ่มค้นหา -->
-                              <q-input borderless dense debounce="300" v-model="filter"
-                                placeholder="ค้นหาข้อมูลส่วนตัว">
+                              <q-input
+                                borderless
+                                dense
+                                debounce="300"
+                                v-model="filter"
+                                placeholder="ค้นหาข้อมูลส่วนตัว"
+                              >
                                 <template v-slot:append>
                                   <q-icon name="search" />
                                 </template>
                               </q-input>
                               <!-- ส่งออก excel -->
-                              <q-btn flat icon-right="archive" label="ส่งออกไฟล์" @click="exportTable()" />
+                              <q-btn
+                                flat
+                                icon-right="archive"
+                                label="ส่งออกไฟล์"
+                                @click="exportTable()"
+                              />
                             </template>
                             <!-- ปุ่ม +/- ส่วนหัว -->
                             <template v-slot:header="props">
                               <q-tr :props="props">
                                 <q-th auto-width>
-                                  <q-btn size="sm" color="secondary" round dense @click="toggleExpansions()"
-                                    :icon="expansionsToggled ? 'remove' : 'add'"></q-btn>
+                                  <q-btn
+                                    size="sm"
+                                    color="secondary"
+                                    round
+                                    dense
+                                    @click="toggleExpansions()"
+                                    :icon="expansionsToggled ? 'remove' : 'add'"
+                                  ></q-btn>
                                 </q-th>
-                                <q-th v-for="col in props.cols" :key="col.name" :props="props">
+                                <q-th
+                                  v-for="col in props.cols"
+                                  :key="col.name"
+                                  :props="props"
+                                >
                                   {{ col.label }}
                                 </q-th>
                               </q-tr>
@@ -124,12 +198,21 @@
                               <!-- ปุ่ม +/- แต่ละแถว -->
                               <q-tr :props="props">
                                 <q-td auto-width>
-                                  <q-toggle v-model="props.expand" checked-icon="add" unchecked-icon="remove"
-                                    :label="`Index: ${props.row.qa_plan_career_id}`" @update:model-value="
+                                  <q-toggle
+                                    v-model="props.expand"
+                                    checked-icon="add"
+                                    unchecked-icon="remove"
+                                    :label="`Index: ${props.row.qa_plan_career_id}`"
+                                    @update:model-value="
                                       subRow(props.row.qa_plan_career_id)
-                                    " />
+                                    "
+                                  />
                                 </q-td>
-                                <q-td v-for="col in props.cols" :key="col.name" :props="props">
+                                <q-td
+                                  v-for="col in props.cols"
+                                  :key="col.name"
+                                  :props="props"
+                                >
                                   {{ col.value }}
                                 </q-td>
                               </q-tr>
@@ -139,19 +222,30 @@
                                   <div class="text-left">
                                     รหัสคุณสมบัติตามอาชีพเป้าหมาย:
                                     {{ props.row.qa_plan_career_id }}
-                                    <q-table class="my-sticky-header-table" title="การพัฒนาตนเอง" :rows="plans"
-                                      :columns="columns" row-key="plan_id" selection="multiple"
-                                      v-model:selected="selected_plan">
+                                    <q-table
+                                      class="my-sticky-header-table"
+                                      title="การพัฒนาตนเอง"
+                                      :rows="plans"
+                                      :columns="columns"
+                                      row-key="plan_id"
+                                      selection="multiple"
+                                      v-model:selected="selected_plan"
+                                    >
                                       <template v-slot:body-cell="props1">
-                                        <q-td key="perform_value" v-if="
-                                          props1.row.qa_plan_career_id ==
-                                          props.row.qa_plan_career_id
-                                        " :props="props1" :class="
-  props1.row.qa_plan_career_id ==
-    props.row.qa_plan_career_id
-    ? 'bg-indigo-5 text-white'
-    : 'bg-white text-black'
-">
+                                        <q-td
+                                          key="perform_value"
+                                          v-if="
+                                            props1.row.qa_plan_career_id ==
+                                            props.row.qa_plan_career_id
+                                          "
+                                          :props="props1"
+                                          :class="
+                                            props1.row.qa_plan_career_id ==
+                                            props.row.qa_plan_career_id
+                                              ? 'bg-indigo-5 text-white'
+                                              : 'bg-white text-black'
+                                          "
+                                        >
                                           <div>{{ props1.value }}</div>
                                         </q-td>
                                       </template>
@@ -168,29 +262,58 @@
                     <div class="row">
                       <div class="col-md-12 col-xs-12 q-pa-xs">
                         <div class="q-pa-xs">
-                          <q-table class="my-sticky-header-table" ref="myTable" title="คุณสมบัติตามอาชีพเป้าหมาย"
-                            :rows="qa_plan_careers_" :columns="main_columns_" row-key="qa_plan_career_id"
-                            selection="multiple" v-model:selected="selected" style="min-height: 100vh" :filter="filter">
+                          <q-table
+                            class="my-sticky-header-table"
+                            ref="myTable"
+                            title="คุณสมบัติตามอาชีพเป้าหมาย"
+                            :rows="qa_plan_careers_"
+                            :columns="main_columns_"
+                            row-key="qa_plan_career_id"
+                            selection="multiple"
+                            v-model:selected="selected"
+                            style="min-height: 100vh"
+                            :filter="filter"
+                          >
                             <!-- ปุ่มค้นหา + ส่งออก excel -->
                             <template v-slot:top-right>
                               <!-- ปุ่มค้นหา -->
-                              <q-input borderless dense debounce="300" v-model="filter"
-                                placeholder="ค้นหาข้อมูลส่วนตัว">
+                              <q-input
+                                borderless
+                                dense
+                                debounce="300"
+                                v-model="filter"
+                                placeholder="ค้นหาข้อมูลส่วนตัว"
+                              >
                                 <template v-slot:append>
                                   <q-icon name="search" />
                                 </template>
                               </q-input>
                               <!-- ส่งออก excel -->
-                              <q-btn flat icon-right="archive" label="ส่งออกไฟล์" @click="exportTable1()" />
+                              <q-btn
+                                flat
+                                icon-right="archive"
+                                label="ส่งออกไฟล์"
+                                @click="exportTable1()"
+                              />
                             </template>
                             <!-- ปุ่ม +/- ส่วนหัว -->
                             <template v-slot:header="props">
                               <q-tr :props="props">
                                 <q-th auto-width>
-                                  <q-btn size="sm" color="secondary" round dense @click="toggleExpansions()"
-                                    :icon="expansionsToggled ? 'remove' : 'add'"></q-btn>
+                                  <q-btn
+                                    size="sm"
+                                    color="secondary"
+                                    round
+                                    dense
+                                    @click="toggleExpansions()"
+                                    :icon="expansionsToggled ? 'remove' : 'add'"
+                                  ></q-btn>
                                 </q-th>
-                                <q-th v-for="col in props.cols" :key="col.name" :props="props">
+                                <q-th
+                                  v-for="col in props.cols"
+                                  :key="col.name"
+                                  :props="props"
+                                >
                                   {{ col.label }}
                                 </q-th>
                               </q-tr>
@@ -261,6 +384,71 @@
                       </div>
                     </div>
                   </q-form>
+                </div>
+              </div>
+              <div class="row">
+                <div class="chatbox-container">
+                  <div class="container">
+                    <h1>Ai Chat Bot</h1>
+                    <div class="messageBox mt-8">
+                      <template
+                        v-for="(message, index) in messages"
+                        :key="index"
+                      >
+                        <div
+                          :class="
+                            message.from == 'user'
+                              ? 'messageFromUser'
+                              : 'messageFromChatGpt'
+                          "
+                        >
+                          <div
+                            :class="
+                              message.from == 'user'
+                                ? 'userMessageWrapper'
+                                : 'chatGptMessageWrapper'
+                            "
+                          >
+                            <div
+                              :class="
+                                message.from == 'user'
+                                  ? 'userMessageContent'
+                                  : 'chatGptMessageContent'
+                              "
+                            >
+                              {{ message.data }}
+                            </div>
+                          </div>
+                        </div>
+                      </template>
+                    </div>
+                    <div class="inputContainer">
+                      <input
+                        v-model="currentMessage"
+                        type="text"
+                        class="messageInput"
+                        placeholder="Ask me anything..."
+                      />
+                      <button
+                        @click="sendMessage(currentMessage)"
+                        class="askButton"
+                      >
+                        Ask
+                      </button>
+
+                      <div>
+                        <audio
+                          id="player"
+                          ref="player"
+                          :src="mySource"
+                          type="audio/mpeg"
+                          controls
+                          hidden
+                        ></audio>
+                        <canvas ref="canvas" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </q-card>

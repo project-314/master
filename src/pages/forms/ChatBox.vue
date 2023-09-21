@@ -62,7 +62,7 @@ export default {
         data: message,
       });
       await axios
-        .post("http://localhost:3000/chatbot", {
+        .post("https://chatgpt-backend-qluc.onrender.com/chatbot", {
           message: message,
         })
         .then((response) => {

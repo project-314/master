@@ -661,6 +661,72 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="row">
+                  <div class="chatbox-container">
+                    <div class="container">
+                      <h1>Ai Chat Bot</h1>
+                      <div class="messageBox mt-8">
+                        <template
+                          v-for="(message, index) in messages"
+                          :key="index"
+                        >
+                          <div
+                            :class="
+                              message.from == 'user'
+                                ? 'messageFromUser'
+                                : 'messageFromChatGpt'
+                            "
+                          >
+                            <div
+                              :class="
+                                message.from == 'user'
+                                  ? 'userMessageWrapper'
+                                  : 'chatGptMessageWrapper'
+                              "
+                            >
+                              <div
+                                :class="
+                                  message.from == 'user'
+                                    ? 'userMessageContent'
+                                    : 'chatGptMessageContent'
+                                "
+                              >
+                                {{ message.data }}
+                              </div>
+                            </div>
+                          </div>
+                        </template>
+                      </div>
+                      <div class="inputContainer">
+                        <input
+                          v-model="currentMessage"
+                          type="text"
+                          class="messageInput"
+                          placeholder="Ask me anything..."
+                        />
+                        <button
+                          @click="sendMessage(currentMessage)"
+                          class="askButton"
+                        >
+                          Ask
+                        </button>
+
+                        <div>
+                          <audio
+                            id="player"
+                            ref="player"
+                            :src="mySource"
+                            type="audio/mpeg"
+                            controls
+                            hidden
+                          ></audio>
+                          <canvas ref="canvas" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </q-card>
             </div>
           </div>
@@ -675,6 +741,7 @@ import axios from "axios";
 import { ref } from "vue";
 import { useQuasar } from "quasar";
 import { exportFile } from "quasar";
+
 // ส่งออกไฟล์ excel
 function wrapCsvValue(val, formatFn, row) {
   let formatted = formatFn !== void 0 ? formatFn(val, row) : val;
@@ -698,6 +765,12 @@ export default {
   components: {},
   data() {
     return {
+      //----------
+      //----------
+      //chat gpt
+      currentMessage: "",
+      messages: [],
+      //----------
       pdpa: ref(false),
       picked: new Date(),
       file_export: "",
@@ -1026,6 +1099,44 @@ export default {
 
   methods: {
     // นำออกไฟล์ excel
+    //----------------
+    //chatgpt
+    //----------------
+    async sendMessage(message) {
+      console.log("สถาบัน", this.institute.label);
+      console.log("คณะ", this.faculty.label);
+      console.log("ปริญญา", this.degree.label);
+      console.log("สาขา", this.department.label);
+      console.log("ความพิการ", this.disability.label);
+      messages =
+        "สถาบัน:" +
+        this.institute.label +
+        "คณะ:" +
+        this.faculty.label +
+        "ปริญญา:" +
+        this.degree.label +
+        "สาขา" +
+        this.department.label +
+        "ความพิการ" +
+        this.disability.label +
+        "คำสั่ง" +
+        "ให้ค้นหาอาชีพ [career list]";
+      this.messages.push({
+        from: "user",
+        data: message,
+      });
+      await axios
+        .post("https://chatgpt-backend-qluc.onrender.com/chatbot", {
+          message: message,
+        })
+        .then((response) => {
+          this.messages.push({
+            from: "chatGpt",
+            data: response.data.data, // Access the 'data' property of the response object
+          });
+        });
+    },
+
     exportTable() {
       console.log("Export excel");
       var columns = this.columns;
