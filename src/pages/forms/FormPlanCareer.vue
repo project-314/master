@@ -476,6 +476,34 @@ export default {
     };
   },
   methods: {
+    async sendMessage(message) {
+      console.log("อาชีพเป้าหมาย", this.planCareer);
+      console.log("กลุ่มอาชีพ", this.plan_career.ca_group_name);
+
+      message =
+        "เงื่อนไข " +
+        " อาชีพเป้าหมาย:" +
+        this.planCareer +
+        " กลุ่มอาชีพ:" +
+        this.plan_career.ca_group_name +
+        " คำสั่ง " +
+        "ให้ค้นหา คุณสมบัติ/ทักษะ [ properities/skills list]";
+      this.messages.push({
+        from: "user",
+        data: message,
+      });
+      await axios
+        // .post("https://chatgpt-backend-qluc.onrender.com/chatbot", {
+        .post("https://chatgpt-backend-qluc.onrender.com/chatbot", {
+          message: message,
+        })
+        .then((response) => {
+          this.messages.push({
+            from: "chatGpt",
+            data: response.data.data, // Access the 'data' property of the response object
+          });
+        });
+    },
     // นำออกไฟล์ excel
     exportTable() {
       console.log("Export excel");

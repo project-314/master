@@ -760,6 +760,34 @@ export default {
     };
   },
   methods: {
+    async sendMessage(message) {
+      console.log("อาชีพเป้าหมาย", this.plan_career_id);
+      console.log("คุณสมบัติ/ทักษะ", this.qa_plan_career_id);
+
+      message =
+        "เงื่อนไข " +
+        " อาชีพเป้าหมาย:" +
+        this.plan_career_id +
+        " คุณสมบัติ/ทักษะ" +
+        this.qa_plan_career_id +
+        " คำสั่ง " +
+        "ให้ค้นหา วิธีการพัฒนาตนเอง เรียนรู้/ปฏิบัติ [up-skill/re-skill list]";
+      this.messages.push({
+        from: "user",
+        data: message,
+      });
+      await axios
+        .post("https://chatgpt-backend-qluc.onrender.com/chatbot", {
+          message: message,
+        })
+        .then((response) => {
+          this.messages.push({
+            from: "chatGpt",
+            data: response.data.data, // Access the 'data' property of the response object
+          });
+        });
+    },
+
     // นำออกไฟล์ excel
     exportTable() {
       console.log("Export excel");

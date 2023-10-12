@@ -1108,7 +1108,7 @@ export default {
       console.log("ปริญญา", this.degree.label);
       console.log("สาขา", this.department.label);
       console.log("ความพิการ", this.disability.label);
-      messages =
+      message =
         "สถาบัน:" +
         this.institute.label +
         "คณะ:" +
@@ -1126,7 +1126,8 @@ export default {
         data: message,
       });
       await axios
-        .post("https://chatgpt-backend-qluc.onrender.com/chatbot", {
+        // .post("https://chatgpt-backend-qluc.onrender.com/chatbot", {
+        .post("http://localhost:3000/chatbot", {
           message: message,
         })
         .then((response) => {

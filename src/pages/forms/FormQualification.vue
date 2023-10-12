@@ -666,6 +666,53 @@ export default {
     };
   },
   methods: {
+    async sendMessage(message) {
+      console.log("อาชีพเป้าหมาย:", this.planCareer);
+      console.log("กลุ่มอาชีพ:", this.ca_group_name);
+      console.log("คุณสมบัติ/ทักษะ:", this.Qualification);
+      console.log("คุณสมบัติที่ต้องการ:", this.qualification_group_name);
+
+      message =
+        "องค์ความรู้ " +
+        " ค่าเป้าหมาย (target) ประกอบด้วย " +
+        "1.ต้องการรู้จักหรือมีทักษะนี้เพียงเล็กน้อยเท่านั้น " +
+        "2.ต้องการเรียนทักษะนี้บ้างเพื่อให้พอทำได้ ถึงแม้จะน้อยกว่าคนทั่วไป " +
+        "3.ต้องการมีประสบการณ์ในการใช้ทักษะนี้เป็นครั้งคราว หรือทำได้เทียบเท่ากับคนทั่วไป " +
+        "4.ต้องการใช้ทักษะนี้ประจําหรือในงานและทำได้ดีกว่าคนทั่วไป " +
+        "5.ต้องการเป็นผู้ที่สามารถถ่ายทอดทักษะนี้แก่ผู้อื่นได้ หรือเป็นต้นแบบของทักษะนี้แก้ผู้อื่นได้ " +
+        "6.(Yes) มีใบประกาศ มีใบรับรอง ผ่านการฝึกประสบการณ์ ได้รับใบอนุญาติขับ/ขี่ " +
+        "ระดับความสำคัญ  (Importance level) ประกอบด้วย " +
+        "1. จำเป็นต้องมี (Must to have)" +
+        "2. ควรจะมี  (Shound to have)" +
+        "3. ทางเลือก (Optional)";
+      "เงื่อนไข " +
+        " อาชีพเป้าหมาย:" +
+        this.plan_career_id +
+        " กลุ่มอาชีพ:" +
+        this.ca_group_name +
+        " คุณสมบัติ/ทักษะ" +
+        this.Qualification +
+        " คุณสมบัติที่ต้องการ:" +
+        this.qualification_group_name +
+        " คำสั่ง " +
+        "1.ให้ค้นหา ค่าเป้าหมาย จาก เงื่อนไข เพียง 1 คำ[target number]" +
+        "2.ให้ค้นหา ระดับความสำคัญ จาก เงื่อนไข เพียง 1 คำ[mportance number]";
+      this.messages.push({
+        from: "user",
+        data: message,
+      });
+      await axios
+        // .post("https://chatgpt-backend-qluc.onrender.com/chatbot", {
+        .post("https://chatgpt-backend-qluc.onrender.com/chatbot", {
+          message: message,
+        })
+        .then((response) => {
+          this.messages.push({
+            from: "chatGpt",
+            data: response.data.data, // Access the 'data' property of the response object
+          });
+        });
+    },
     // นำออกไฟล์ excel
     exportTable() {
       console.log("Export excel");
